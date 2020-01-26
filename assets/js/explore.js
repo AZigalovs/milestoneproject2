@@ -1,12 +1,8 @@
 
 
-function reset () {
-    location.reload();
-}
-
-
+var map;
 function initMap() {
-     var map = new google.maps.Map(document.getElementById('map'), {
+        map = new google.maps.Map(document.getElementById('map'), {
         zoom: 8,
         center: { lat: 53.3498, lng: -6.2603 },
         mapTypeControl: false,
@@ -79,5 +75,20 @@ function search() {
         }
     }
     });
-
 }
+
+function clearMarkers() {
+    for (var i = 0; i < markers.length; i++) {
+        if (markers[i]) {
+            markers[i].setMap(null);
+        }
+    }
+    markers[];
+}
+
+function dropMarker(i) {
+    return function() {
+        markers[i].setMap(map);
+    }
+}
+
