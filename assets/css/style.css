@@ -1,0 +1,27 @@
+body {
+    font-family: Roboto, sans-serif;
+    font-weight: 300;
+    background-color: #dcdcdc
+}
+
+#map {
+    height: 600px;
+    max-width: 100%
+}
+
+.scroll-tbody {
+    display: inline-block;
+    height: 550px;
+    overflow-y: auto;
+    width: 100%;
+}
+
+.t-body {
+    cursor: pointer;
+    margin: auto 0px;
+}
+
+#footer {
+    height: 40px;
+    padding: 8px;
+}
