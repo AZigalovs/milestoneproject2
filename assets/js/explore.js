@@ -17,16 +17,16 @@ function initMap() {
     // City Locations
     autocomplete = new google.maps.places.Autocomplete()
 
-        document.getElementById('autocomplete')), {
+        document.getElementById('autocomplete'), {
             types: ['(cities)'],
-        });
+        };
         places = new google.maps.places.PlacesServices(map);
 
         autocomplete.addListener('place_changed', onPlaceChanged);
     }
 
     // Zoom function
-    function onPlaceChanged()
+    function onPlaceChanged() {
     var place = autocomplete.getPlace();
     if (place.geometry) {
         map.panTo(place.geometry.location);
@@ -73,9 +73,9 @@ function search() {
             setTimeout(dropMarker(i), i * 5);
             addResult(results[i], i);
         }
-    }
-    });
-}
+    })
+    };
+
 
 function clearMarkers() {
     for (var i = 0; i < markers.length; i++) {
