@@ -1,7 +1,8 @@
 var map, places, infoWindow;
 var markers = [];
 var autocomplete;
-
+var MARKER_PATH = 'https://developers.google.com/maps/documentation/javascript/images/marker_green';
+var hostnameRegexp = new RegExp('^https?://.+?/');
 
 
 function initMap() {
@@ -13,16 +14,16 @@ function initMap() {
         fullscreenControl: true
     });
 
-    infoWindow = new google.maps.infoWindow({
+    infoWindow = new google.maps.InfoWindow({
         content: document.getElementById('info-content')
     });
 
     // City Locations
-    autocomplete = new google.maps.places.Autocomplete()
-
-        document.getElementById('autocomplete'), {
+    autocomplete = new google.maps.places.Autocomplete(
+        (
+        document.getElementById('autocomplete')), {
             types: ['(cities)'],
-        };
+        });
         places = new google.maps.places.PlacesServices(map);
 
         autocomplete.addListener('place_changed', onPlaceChanged);
@@ -152,3 +153,19 @@ function buildIWContent(place) {
         document.getElementById('iw-phone-row').style.display = 'none';
     }
 }
+
+// The regexp isolates the first part of the URL (domain plus subdomain)
+// to give a short URL for displaying in the info window.
+    if (place.website) {
+          var fullUrl = place.website;
+          var website = hostnameRegexp.exec(place.website);
+          if (website === null) {
+            website = 'http://' + place.website + '/';
+            fullUrl = website;
+          }
+          document.getElementById('iw-website-row').style.display = '';
+          document.getElementById('iw-website').textContent = website;
+        } else {
+          document.getElementById('iw-website-row').style.display = 'none';
+        }
+      
