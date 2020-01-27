@@ -1,6 +1,8 @@
+var map, places, infoWindow;
+var markers = [];
+var autocomplete;
 
 
-var map;
 function initMap() {
         map = new google.maps.Map(document.getElementById('map'), {
         zoom: 8,
@@ -83,7 +85,7 @@ function clearMarkers() {
             markers[i].setMap(null);
         }
     }
-    markers[];
+    
 }
 
 function dropMarker(i) {
@@ -92,3 +94,22 @@ function dropMarker(i) {
     }
 }
 
+function addResult(result, i) {
+    var results = document.getElementById('results');
+    var markerLetter = String.fromCharCode('A'.charCode(0) + (i % 26));
+    var markerIcon = MARKER_PATH + markerLetter;
+}
+
+var tr = document.createElement('tr');
+tr.style.backgroundColor = (i % 2 === 0 ? '#fffff' : '#f0f0f0');
+tr.onclick = function() {
+    google.maps.event.trigger(markers[i], 'click');
+};
+
+var iconTd = document.createElement('td');
+var nameTd = document.createElement('td');
+var icon - document.createElement('img');
+icon.setAttribute('class', 'placeIcon');
+icon.setAttribute('classNam', 'placeIcon');
+var name = document.createTextNode(results.name);
+iconTd.appendChild
