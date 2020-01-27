@@ -3,7 +3,9 @@ var markers = [];
 var autocomplete;
 var MARKER_PATH = 'https://developers.google.com/maps/documentation/javascript/images/marker_green';
 
-
+function reset() {
+    location.reload();
+}
 
 function initMap() {
         map = new google.maps.Map(document.getElementById('map'), {
