@@ -2,7 +2,7 @@ var map, places, infoWindow;
 var markers = [];
 var autocomplete;
 var MARKER_PATH = 'https://developers.google.com/maps/documentation/javascript/images/marker_green';
-var hostnameRegexp = new RegExp('^https?://.+?/');
+
 
 
 function initMap() {
@@ -20,11 +20,11 @@ function initMap() {
 
     // City Locations
     autocomplete = new google.maps.places.Autocomplete(
-        (
+        /** @type {!HTMLInputElement} */ (
         document.getElementById('autocomplete')), {
             types: ['(cities)'],
         });
-        places = new google.maps.places.PlacesServices(map);
+        places = new google.maps.places.PlacesService(map);
 
         autocomplete.addListener('place_changed', onPlaceChanged);
     }
@@ -48,37 +48,29 @@ function search() {
         types: [locations]
     };
 
-    places.nearbySearch(search, function(results, status){
-        if (status === google.maps.places.PlacesServices.OK) {
+    places.nearbySearch(search, function(results, status) {
+        if (status === google.maps.places.PlacesServiceStatus.OK) {
             clearResults();
             clearMarkers();
 
             for (var i = 0; i < results.length; i++) {
+
                 // Marker animation
                 markers[i] = new google.maps.Marker({
                     position: results[i].geometry.location,
                     animation: google.maps.Animation.DROP
                 });
-                marker.addListener('click', toggleBounce);
-            }
-
-            function toggleBounce() {
-                if (marker.getAnimation() !== null) {
-                    marker.setAnimation(null);
-                } else {
-                    marker.setAnimation(google.maps.Animation.BOUNCE);
-                }
-            }
-
+                                    
             // Info
 
             markers[i].placeResult = results[i];
             google.maps.event.addListener(markers[i], 'click', showInfoWindow);
-            setTimeout(dropMarker(i), i * 5);
+            setTimeout(dropMarker(i), i * 100);
             addResult(results[i], i);
         }
-    })
-    };
+    }
+    });
+    }
 
 
 function clearMarkers() {
@@ -98,7 +90,7 @@ function dropMarker(i) {
 
 function addResult(result, i) {
     var results = document.getElementById('results');
-    var markerLetter = String.fromCharCode('A'.charCode(0) + (i % 26));
+    var markerLetter = String.fromCharCode('A'.charCodeAt(0) + (i % 26));
     var markerIcon = MARKER_PATH + markerLetter;
 
 
@@ -130,9 +122,9 @@ function clearResults() {
 
 function showInfoWindow() {
     var marker = this;
-    places.getDetails({ placeID: marker.placeResults.place_id },
+    places.getDetails({ placeID: marker.placeResult.place_id },
         function(place, status) {
-            if (status !== google.maps.places.PlacesServices.OK) {
+            if (status !== google.maps.places.PlacesServiceStatus.OK) {
                 return;
             }
             infoWindow.open(map, marker);
@@ -154,18 +146,5 @@ function buildIWContent(place) {
     }
 }
 
-// The regexp isolates the first part of the URL (domain plus subdomain)
-// to give a short URL for displaying in the info window.
-    if (place.website) {
-          var fullUrl = place.website;
-          var website = hostnameRegexp.exec(place.website);
-          if (website === null) {
-            website = 'http://' + place.website + '/';
-            fullUrl = website;
-          }
-          document.getElementById('iw-website-row').style.display = '';
-          document.getElementById('iw-website').textContent = website;
-        } else {
-          document.getElementById('iw-website-row').style.display = 'none';
-        }
+
       
