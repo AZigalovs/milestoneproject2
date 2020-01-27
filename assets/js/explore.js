@@ -98,7 +98,7 @@ function addResult(result, i) {
     var results = document.getElementById('results');
     var markerLetter = String.fromCharCode('A'.charCode(0) + (i % 26));
     var markerIcon = MARKER_PATH + markerLetter;
-}
+
 
 var tr = document.createElement('tr');
 tr.style.backgroundColor = (i % 2 === 0 ? '#fffff' : '#f0f0f0');
@@ -108,8 +108,46 @@ tr.onclick = function() {
 
 var iconTd = document.createElement('td');
 var nameTd = document.createElement('td');
-var icon - document.createElement('img');
+var icon = document.createElement('img');
 icon.setAttribute('class', 'placeIcon');
 icon.setAttribute('classNam', 'placeIcon');
 var name = document.createTextNode(results.name);
-iconTd.appendChild
+iconTd.appendChild(icon);
+nameTd.appendChild(name);
+tr.appendChild(iconTd);
+tr.appendChild(nameTd);
+results.appendChild(tr);
+}
+
+function clearResults() {
+    var results = document.getElementById('results');
+    while (results.childNodes[0]) {
+        results.removeChild(results.childNodes[0]);
+    }
+}
+
+function showInfoWindow() {
+    var marker = this;
+    places.getDetails({ placeID: marker.placeResults.place_id },
+        function(place, status) {
+            if (status !== google.maps.places.PlacesServices.OK) {
+                return;
+            }
+            infoWindow.open(map, marker);
+            buildIWContent(place);
+        });
+}
+
+// Information loading into HTML elements
+function buildIWContent(place) {
+    document.getElementById('iw-icon').innerHTML = '<img class="childIcon" ' + 'src="' + place.icon + '"/>';
+    document.getElementById('iw-url').innerHTML = '<b><a href="' + place.url +'" target="_blank" >' + place.name + '</a></b>';
+    document.getElementById('iw-address').textContent = place.vicinity; 
+
+    if (place.formatted_phone_number) {
+        document.getElementById('iw-phone-row').style.display = '';
+        document.getElementById('iw-phone').textContent = place.formatted_phone_number;
+    } else {
+        document.getElementById('iw-phone-row').style.display = 'none';
+    }
+}
