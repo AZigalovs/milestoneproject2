@@ -67,7 +67,7 @@ function search() {
 
             markers[i].placeResult = results[i];
             google.maps.event.addListener(markers[i], 'click', showInfoWindow);
-            setTimeout(dropMarker(i), i * 100);
+            setTimeout(dropMarker(i), i * 5);
             addResult(results[i], i);
         }
     }
@@ -81,7 +81,7 @@ function clearMarkers() {
             markers[i].setMap(null);
         }
     }
-    
+    markers = [];
 }
 
 function dropMarker(i) {
