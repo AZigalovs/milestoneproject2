@@ -74,7 +74,7 @@ function search() {
         }
     }
     });
-    }
+}
 
 
 function clearMarkers() {
@@ -123,6 +123,8 @@ function clearResults() {
         results.removeChild(results.childNodes[0]);
     }
 }
+
+// Place details in an info window
 
 function showInfoWindow() {
     var marker = this;
