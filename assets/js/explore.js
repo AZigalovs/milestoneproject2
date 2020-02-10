@@ -38,6 +38,8 @@ function initMap() {
         map.panTo(place.geometry.location);
         map.setZoom(20);
         search();
+    } else {
+        document.getElementById('autocomplete')
     }
 }
 
@@ -107,7 +109,7 @@ var nameTd = document.createElement('td');
 var icon = document.createElement('img');
 icon.setAttribute('class', 'placeIcon');
 icon.setAttribute('classNam', 'placeIcon');
-var name = document.createTextNode(results.name);
+var name = document.createTextNode(result.name);
 iconTd.appendChild(icon);
 nameTd.appendChild(name);
 tr.appendChild(iconTd);
