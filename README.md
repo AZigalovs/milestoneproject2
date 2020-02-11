@@ -31,6 +31,14 @@ Using this as a user, I want to be able to find various locations for specific A
 - Website has also been tested via Chrome Dev Tool for various devices and sizes
   - Tested in Chrome on Pocophone F1 and iPhone 7 
 
+### Issues
+
+Web page should have worked where each marker would provide information on specific location along with the results showing as a list on the right hand side. However, I have run into a problem, where markers do populate, with no information provided. Unfortunately, I could not figure out a fix for this.
+
+## Deployment
+
+Project is deployed on [GitHub Pages](https://azigalovs.github.io/milestoneproject2/)
+
 ## Credits
   [BootstrapCDN](https://www.bootstrapcdn.com/)
 
